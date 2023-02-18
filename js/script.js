@@ -3,6 +3,7 @@ const operatorButtons = document.querySelectorAll(".operator-button");
 const bottomOutput = document.querySelector("#bottom");
 const topOutput = document.querySelector("#top");
 const equalsButton = document.getElementById("equals");
+const clearButton = document.getElementById("clear");
 
 let leftValue = 0;
 let total = 0;
@@ -13,6 +14,7 @@ let firstOpReceived = false;
 numberButtons.forEach(button => button.addEventListener("click", updateOutput));
 operatorButtons.forEach(button => button.addEventListener("click", storeExpression));
 equalsButton.addEventListener("click", operate);
+clearButton.addEventListener("click", clearAll);
 
 
 function operate() {
@@ -33,6 +35,8 @@ function operate() {
         case "÷":
             total = leftValue / rightValue;
     }
+
+    if (total.toString().length > 18) total = total.toExponential();
 
     bottomOutput.textContent = total;
     firstOpReceived = false;
@@ -63,5 +67,6 @@ function clearAll() {
     leftValue = 0;
     total = 0;
     bottomOutput.textContent = 0;
+    topOutput.textContent = "";
     firstOpReceived = false;
 }
