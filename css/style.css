@@ -15,7 +15,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: yellow;
+    background-color: rgb(255, 225, 170);
 }
 
 main {
@@ -32,6 +32,7 @@ main {
     background-color: lightgray;
     border-radius: 8px;
     border: 2px solid black;
+    box-shadow: 4px 4px;
 }
 
 .output {
