@@ -1,27 +1,50 @@
 const numberButtons = document.querySelectorAll(".number-button");
+const operatorButtons = document.querySelectorAll(".operator-button");
 const bottomOutput = document.querySelector("#bottom");
 const topOutput = document.querySelector("#top");
+const equalsButton = document.getElementById("equals");
+
+let leftValue = 0;
+let total = 0;
+let operator = null;
+let firstOpReceived = false;
+
 
 numberButtons.forEach(button => button.addEventListener("click", updateOutput));
+operatorButtons.forEach(button => button.addEventListener("click", storeExpression));
+equalsButton.addEventListener("click", operate);
 
-function add(firstOperand, secondOperand) {
-    return firstOperand + secondOperand;
+
+function operate() {
+    if (!firstOpReceived) return;
+
+    let rightValue = Number(bottomOutput.textContent);
+
+    switch (operator) {
+        case "+":
+            total = leftValue + rightValue;
+            break;
+        case "-":
+            total = leftValue - rightValue;
+            break;
+        case "x":
+            total = leftValue * rightValue;
+            break;
+        case "÷":
+            total = leftValue / rightValue;
+    }
+
+    bottomOutput.textContent = total;
+    firstOpReceived = false;
 }
 
-function subtract(firstOperand, secondOperand) {
-    return firstOperand - secondOperand;
-}
+function storeExpression(event) {
+    if (firstOpReceived) return;
 
-function multiply(firstOperand, secondOperand) {
-    return firstOperand * secondOperand;
-}
-
-function divide(firstOperand, secondOperand) {
-    return firstOperand / secondOperand;
-}
-
-function operate(firstOperand, secondOperand, operator) {
-    //code here
+    operator = event.target.textContent;
+    leftValue = Number(bottomOutput.textContent);
+    bottomOutput.textContent = "0";
+    firstOpReceived = true;
 }
 
 function updateOutput(event) {
@@ -34,4 +57,11 @@ function updateOutput(event) {
 
     bottomOutput.textContent = bottomOutput.textContent == 0 ? value :
         bottomOutput.textContent += value;
+}
+
+function clearAll() {
+    leftValue = 0;
+    total = 0;
+    bottomOutput.textContent = 0;
+    firstOpReceived = false;
 }
