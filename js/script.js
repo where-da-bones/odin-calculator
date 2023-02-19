@@ -4,6 +4,7 @@ const bottomOutput = document.querySelector("#bottom");
 const topOutput = document.querySelector("#top");
 const equalsButton = document.getElementById("equals");
 const clearButton = document.getElementById("clear");
+const undoButton = document.getElementById("undo");
 
 let leftValue = 0;
 let total = 0;
@@ -15,6 +16,7 @@ numberButtons.forEach(button => button.addEventListener("click", updateOutput));
 operatorButtons.forEach(button => button.addEventListener("click", storeExpression));
 equalsButton.addEventListener("click", operate);
 clearButton.addEventListener("click", clearAll);
+undoButton.addEventListener("click", clear);
 
 
 function operate() {
@@ -61,6 +63,17 @@ function updateOutput(event) {
 
     bottomOutput.textContent = bottomOutput.textContent == 0 ? value :
         bottomOutput.textContent += value;
+}
+
+function clear() {
+    if (bottomOutput.textContent.length > 1) {
+        let currentLength = bottomOutput.textContent.length;
+        let previousValue = bottomOutput.textContent.slice(0, currentLength - 1); 
+        bottomOutput.textContent = previousValue;
+    }
+    else {
+        bottomOutput.textContent = "0";
+    }
 }
 
 function clearAll() {
