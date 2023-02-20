@@ -103,10 +103,6 @@ function flipSign() {
     }
 }
 
-//TO DO: make necessary length checks
-//re-enable button at appropriate times (entering second operand)
-//or if user undoes a decimal
-
 function addDecimal() {
     if (bottomOutput.textContent.length < 18) {
         bottomOutput.textContent += ".";
