@@ -88,4 +88,7 @@ button:active {
 
 footer {
     padding: 16px;
+    background-color: rgb(253, 255, 224);
+    align-self: stretch;
+    text-align: center;
 }
