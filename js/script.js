@@ -6,12 +6,12 @@ const equalsButton = document.getElementById("equals");
 const clearButton = document.getElementById("clear");
 const undoButton = document.getElementById("undo");
 const signButton = document.getElementById("sign");
+const decimalButton = document.getElementById("decimal");
 
 let leftValue = 0;
 let total = 0;
 let operator = null;
 let firstOpReceived = false;
-
 
 numberButtons.forEach(button => button.addEventListener("click", updateOutput));
 operatorButtons.forEach(button => button.addEventListener("click", storeExpression));
@@ -19,7 +19,7 @@ equalsButton.addEventListener("click", operate);
 clearButton.addEventListener("click", clearAll);
 undoButton.addEventListener("click", clear);
 signButton.addEventListener("click", flipSign);
-
+decimalButton.addEventListener("click", addDecimal);
 
 function operate() {
     if (!firstOpReceived) return;
@@ -40,7 +40,8 @@ function operate() {
             total = leftValue / rightValue;
     }
 
-    if (total.toString().length > 18) total = total.toExponential();
+    if (total.toString().length > 18) total = total.toExponential(4);
+    if(decimalButton.disabled) decimalButton.disabled = false;
 
     bottomOutput.textContent = total;
     firstOpReceived = false;
@@ -53,6 +54,7 @@ function storeExpression(event) {
     leftValue = Number(bottomOutput.textContent);
     bottomOutput.textContent = "0";
     firstOpReceived = true;
+    if(decimalButton.disabled) decimalButton.disabled = false;
 }
 
 function updateOutput(event) {
@@ -63,14 +65,16 @@ function updateOutput(event) {
         return;
     }
 
-    bottomOutput.textContent = bottomOutput.textContent == 0 ? value :
+    bottomOutput.textContent = bottomOutput.textContent === "0" ? value :
         bottomOutput.textContent += value;
 }
 
-//before clearing anything we need to extract digits only from display
 function clear() {
-    let numbers = bottomOutput.textContent.match(/\d+/g).join('');
+    let numbers = bottomOutput.textContent.match(/^\d*\.?\d*/).join('');
     if (numbers.length > 1) {
+        if (numbers[numbers.length - 1] === ".") {
+            decimalButton.disabled = false;
+        }
         let currentLength = bottomOutput.textContent.length;
         let previousValue = bottomOutput.textContent.slice(0, currentLength - 1); 
         bottomOutput.textContent = previousValue;
@@ -86,6 +90,7 @@ function clearAll() {
     bottomOutput.textContent = 0;
     topOutput.textContent = "";
     firstOpReceived = false;
+    if(decimalButton.disabled) decimalButton.disabled = false;
 }
 
 function flipSign() {
@@ -95,5 +100,16 @@ function flipSign() {
     }
     else if (bottomOutput.textContent.length < 18 && bottomOutput.textContent != "0") {
         bottomOutput.textContent = "-" + bottomOutput.textContent;
+    }
+}
+
+//TO DO: make necessary length checks
+//re-enable button at appropriate times (entering second operand)
+//or if user undoes a decimal
+
+function addDecimal() {
+    if (bottomOutput.textContent.length < 18) {
+        bottomOutput.textContent += ".";
+        decimalButton.disabled = true;
     }
 }
