@@ -5,6 +5,7 @@ const topOutput = document.querySelector("#top");
 const equalsButton = document.getElementById("equals");
 const clearButton = document.getElementById("clear");
 const undoButton = document.getElementById("undo");
+const signButton = document.getElementById("sign");
 
 let leftValue = 0;
 let total = 0;
@@ -17,6 +18,7 @@ operatorButtons.forEach(button => button.addEventListener("click", storeExpressi
 equalsButton.addEventListener("click", operate);
 clearButton.addEventListener("click", clearAll);
 undoButton.addEventListener("click", clear);
+signButton.addEventListener("click", flipSign);
 
 
 function operate() {
@@ -65,8 +67,10 @@ function updateOutput(event) {
         bottomOutput.textContent += value;
 }
 
+//before clearing anything we need to extract digits only from display
 function clear() {
-    if (bottomOutput.textContent.length > 1) {
+    let numbers = bottomOutput.textContent.match(/\d+/g).join('');
+    if (numbers.length > 1) {
         let currentLength = bottomOutput.textContent.length;
         let previousValue = bottomOutput.textContent.slice(0, currentLength - 1); 
         bottomOutput.textContent = previousValue;
@@ -82,4 +86,14 @@ function clearAll() {
     bottomOutput.textContent = 0;
     topOutput.textContent = "";
     firstOpReceived = false;
+}
+
+function flipSign() {
+    if (bottomOutput.textContent.includes("-")) {
+        let valueToFlip = bottomOutput.textContent
+        bottomOutput.textContent = valueToFlip.slice(1, bottomOutput.textContent.length);
+    }
+    else if (bottomOutput.textContent.length < 18 && bottomOutput.textContent != "0") {
+        bottomOutput.textContent = "-" + bottomOutput.textContent;
+    }
 }
