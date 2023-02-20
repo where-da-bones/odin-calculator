@@ -37,7 +37,7 @@ function operate() {
             total = leftValue * rightValue;
             break;
         case "÷":
-            total = leftValue / rightValue;
+            rightValue == 0 ? total = "Undefined" : leftValue / rightValue;
     }
 
     if (total.toString().length > 18) total = total.toExponential(4);
