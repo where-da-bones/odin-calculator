@@ -92,3 +92,7 @@ footer {
     align-self: stretch;
     text-align: center;
 }
+
+a {
+    text-decoration: none;
+}
