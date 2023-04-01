@@ -15,4 +15,6 @@ the following functionality:
 
 - Keyboard support
 
-## Live demo
+## Links
+
+Visit the live site here: https://omni23.github.io/odin-calculator/
