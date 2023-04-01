@@ -37,7 +37,7 @@ header {
     width: 20rem;
     height: 25rem;
     padding: 10px;
-    background-color: lightgray;
+    background-color: rgb(200, 200, 200);
     border-radius: 10px;
     box-shadow: 5px 5px 5px rgb(175, 175, 175);
     display: flex;
@@ -52,7 +52,7 @@ header {
     border-radius: 10px;
     border-width: 3px 4px 3px 4px;
     border-style: solid;
-    border-color:rgb(165, 165, 165);
+    border-color:rgb(180, 180, 180);
     display: flex;
     flex-direction: column;
     font-family: digital-mono, monospace;
@@ -77,10 +77,11 @@ header {
 }
 
 button {
+    background-color: rgb(210, 210, 210);
     font-size: 1.5rem;
     border-radius: 5px;
-    border: 2px solid rgb(120, 120, 120);
-    border-bottom: 4px solid gray;
+    border: 2px solid rgb(180, 180, 180);
+    border-bottom: 4px solid rgb(150, 150, 150);
 }
 
 .operator-button {
