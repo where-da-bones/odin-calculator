@@ -78,9 +78,8 @@ function updateOutput(event) {
 }
 
 function clear() {
-  let numbers = bottomOutput.textContent.match(/^\d*\.?\d*/).join("");
-  if (numbers.length > 1) {
-    if (numbers[numbers.length - 1] === ".") {
+  if (bottomOutput.textContent.length > 1) {
+    if (bottomOutput.textContent[bottomOutput.textContent.length - 1] === ".") {
       decimalButton.disabled = false;
     }
     let currentLength = bottomOutput.textContent.length;
@@ -88,6 +87,10 @@ function clear() {
     bottomOutput.textContent = previousValue;
   } else {
     bottomOutput.textContent = "0";
+  }
+
+  if (topOutput.textContent) {
+    topOutput.textContent = "";
   }
 }
 
@@ -118,7 +121,7 @@ function flipSign() {
 function addDecimal() {
   if (
     bottomOutput.textContent.length < 18 &&
-    !bottomOutput.textContent.contains(".")
+    !bottomOutput.textContent.includes(".")
   ) {
     bottomOutput.textContent += ".";
     decimalButton.disabled = true;
