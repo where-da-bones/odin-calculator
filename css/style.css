@@ -82,6 +82,7 @@ button {
     border-radius: 5px;
     border: 2px solid rgb(180, 180, 180);
     border-bottom: 4px solid rgb(150, 150, 150);
+    color: black;
 }
 
 .operator-button {
