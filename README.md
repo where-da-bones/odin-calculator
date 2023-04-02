@@ -11,10 +11,6 @@ the following functionality:
 - Allows conversion of an operand to negative or positive
 - Works with decimal numbers
 
-## To Do
-
-- Keyboard support
-
 ## Links
 
 Visit the live site here: https://omni23.github.io/odin-calculator/
