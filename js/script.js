@@ -25,6 +25,31 @@ undoButton.addEventListener("click", clear);
 signButton.addEventListener("click", flipSign);
 decimalButton.addEventListener("click", addDecimal);
 
+/*event handler for keyboard support*/
+window.addEventListener("keydown", (event) => {
+  console.log(event.key);
+  if (event.key >= 0 && event.key <= 10) {
+    updateOutput(event);
+  } else if (
+    event.key === "+" ||
+    event.key === "-" ||
+    event.key === "*" ||
+    event.key === "/"
+  ) {
+    storeExpression(event);
+  } else if (event.key === "Enter" || event.key === "=") {
+    operate();
+  } else if (event.key === "s") {
+    flipSign();
+  } else if (event.key === "Backspace") {
+    clear();
+  } else if (event.key === "c") {
+    clearAll();
+  } else if (event.key === ".") {
+    addDecimal();
+  }
+});
+
 function operate() {
   if (!firstOpReceived) return;
 
@@ -37,7 +62,7 @@ function operate() {
     case "-":
       total = leftValue - rightValue;
       break;
-    case "x":
+    case "*":
       total = leftValue * rightValue;
       break;
     case "÷":
@@ -50,35 +75,53 @@ function operate() {
   if (decimalButton.disabled) decimalButton.disabled = false;
 
   bottomOutput.textContent = total;
+  topOutput.textContent += " " + rightValue;
   firstOpReceived = false;
 }
 
 function storeExpression(event) {
   if (firstOpReceived) return;
 
-  operator = event.target.textContent;
+  if (event.type === "click") {
+    if (event.target.textContent === "x") {
+      operator = "*";
+    } else {
+      operator = event.target.textContent;
+    }
+  } else {
+    if (event.key === "/") operator = "÷";
+    else {
+      operator = event.key;
+    }
+  }
+
   leftValue = Number(bottomOutput.textContent);
   bottomOutput.textContent = "0";
+  topOutput.textContent = leftValue + " " + operator;
   firstOpReceived = true;
   if (decimalButton.disabled) decimalButton.disabled = false;
 }
 
 function updateOutput(event) {
-  value = event.target.textContent;
-
-  if ((bottomOutput.textContent + value).length > 18) {
-    topOutput.textContent = "Exceeded display length";
-    return;
+  if (event.type === "click") value = event.target.textContent;
+  else {
+    value = event.key;
   }
 
-  bottomOutput.textContent =
-    bottomOutput.textContent === "0"
-      ? value
-      : (bottomOutput.textContent += value);
+  if ((bottomOutput.textContent + value).length < 18) {
+    bottomOutput.textContent =
+      bottomOutput.textContent === "0"
+        ? value
+        : (bottomOutput.textContent += value);
+  }
 }
 
 function clear() {
-  if (bottomOutput.textContent.length > 1) {
+  if (
+    bottomOutput.textContent.length > 1 &&
+    bottomOutput.textContent !== "Undefined" &&
+    bottomOutput.textContent !== "NaN"
+  ) {
     if (bottomOutput.textContent[bottomOutput.textContent.length - 1] === ".") {
       decimalButton.disabled = false;
     }
@@ -87,10 +130,6 @@ function clear() {
     bottomOutput.textContent = previousValue;
   } else {
     bottomOutput.textContent = "0";
-  }
-
-  if (topOutput.textContent) {
-    topOutput.textContent = "";
   }
 }
 
