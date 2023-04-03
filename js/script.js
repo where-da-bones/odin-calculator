@@ -27,26 +27,39 @@ decimalButton.addEventListener("click", addDecimal);
 
 /*event handler for keyboard support*/
 window.addEventListener("keydown", (event) => {
-  console.log(event.key);
-  if (event.key >= 0 && event.key <= 10) {
-    updateOutput(event);
-  } else if (
-    event.key === "+" ||
-    event.key === "-" ||
-    event.key === "*" ||
-    event.key === "/"
-  ) {
-    storeExpression(event);
-  } else if (event.key === "Enter" || event.key === "=") {
-    operate();
-  } else if (event.key === "s") {
-    flipSign();
-  } else if (event.key === "Backspace") {
-    clear();
-  } else if (event.key === "c" || event.key === "C") {
-    clearAll();
-  } else if (event.key === ".") {
-    addDecimal();
+  switch (event.key) {
+    case "0":
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+      updateOutput(event);
+      break;
+    case "+":
+    case "-":
+    case "*":
+    case "/":
+      storeExpression(event);
+      break;
+    case "Enter":
+    case "=":
+      operate();
+      break;
+    case "s":
+      flipSign();
+      break;
+    case "Backspace":
+      clear();
+    case "c":
+    case "C":
+      clearAll();
+    case ".":
+      addDecimal();
   }
 });
 
