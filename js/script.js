@@ -86,7 +86,7 @@ function operate() {
         : (total = leftValue / rightValue);
   }
 
-  if (total.toString().length > 16) total = total.toExponential(4);
+  if (total.toString().length > 17) total = total.toExponential(4);
   if (decimalButton.disabled) decimalButton.disabled = false;
 
   bottomOutput.textContent = total;
@@ -164,10 +164,7 @@ function flipSign() {
       1,
       bottomOutput.textContent.length
     );
-  } else if (
-    bottomOutput.textContent.length < 16 &&
-    bottomOutput.textContent != "0"
-  ) {
+  } else if (bottomOutput.textContent != "0") {
     bottomOutput.textContent = "-" + bottomOutput.textContent;
   }
 }
