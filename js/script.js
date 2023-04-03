@@ -43,7 +43,7 @@ window.addEventListener("keydown", (event) => {
     flipSign();
   } else if (event.key === "Backspace") {
     clear();
-  } else if (event.key === "c") {
+  } else if (event.key === "c" || event.key === "C") {
     clearAll();
   } else if (event.key === ".") {
     addDecimal();
@@ -71,7 +71,7 @@ function operate() {
         : (total = leftValue / rightValue);
   }
 
-  if (total.toString().length > 18) total = total.toExponential(4);
+  if (total.toString().length > 16) total = total.toExponential(4);
   if (decimalButton.disabled) decimalButton.disabled = false;
 
   bottomOutput.textContent = total;
@@ -108,7 +108,7 @@ function updateOutput(event) {
     value = event.key;
   }
 
-  if ((bottomOutput.textContent + value).length < 18) {
+  if (bottomOutput.textContent.length < 16) {
     bottomOutput.textContent =
       bottomOutput.textContent === "0"
         ? value
@@ -150,7 +150,7 @@ function flipSign() {
       bottomOutput.textContent.length
     );
   } else if (
-    bottomOutput.textContent.length < 18 &&
+    bottomOutput.textContent.length < 16 &&
     bottomOutput.textContent != "0"
   ) {
     bottomOutput.textContent = "-" + bottomOutput.textContent;
@@ -159,7 +159,7 @@ function flipSign() {
 
 function addDecimal() {
   if (
-    bottomOutput.textContent.length < 18 &&
+    bottomOutput.textContent.length < 16 &&
     !bottomOutput.textContent.includes(".")
   ) {
     bottomOutput.textContent += ".";
