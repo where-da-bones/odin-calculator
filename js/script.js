@@ -55,9 +55,11 @@ window.addEventListener("keydown", (event) => {
       break;
     case "Backspace":
       clear();
+      break;
     case "c":
     case "C":
       clearAll();
+      break;
     case ".":
       addDecimal();
   }
