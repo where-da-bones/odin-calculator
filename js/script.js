@@ -132,7 +132,10 @@ function updateOutput(event) {
 }
 
 function clear() {
-  if (
+  if (bottomOutput.textContent.length === 2 && bottomOutput.textContent.includes("-")) {
+    bottomOutput.textContent = "0";
+  }
+  else if (
     bottomOutput.textContent.length > 1 &&
     bottomOutput.textContent !== "Undefined" &&
     bottomOutput.textContent !== "NaN"
@@ -143,7 +146,8 @@ function clear() {
     let currentLength = bottomOutput.textContent.length;
     let previousValue = bottomOutput.textContent.slice(0, currentLength - 1);
     bottomOutput.textContent = previousValue;
-  } else {
+  }
+  else {
     bottomOutput.textContent = "0";
   }
 }
@@ -164,7 +168,9 @@ function flipSign() {
       1,
       bottomOutput.textContent.length
     );
-  } else if (bottomOutput.textContent != "0") {
+  } else if (bottomOutput.textContent != "0" &&
+    bottomOutput.textContent != "NaN" &&
+    bottomOutput.textContent != "Undefined") {
     bottomOutput.textContent = "-" + bottomOutput.textContent;
   }
 }
